@@ -17,7 +17,7 @@
         <div class="flex justify-between items-start z-10">
             <div>
                 <p class="font-label-caps text-label-caps text-on-surface-variant mb-2">Total Menus</p>
-                <h3 class="font-headline-md text-headline-md text-on-surface">{{ stats.total_menus }}</h3>
+                <h3 class="font-headline-md text-headline-md text-on-surface">{{ stats.total_menu }}</h3>
             </div>
             <div class="w-10 h-10 rounded-full bg-tertiary/10 flex items-center justify-center text-tertiary group-hover:glow-active transition-all duration-500">
                 <span class="material-symbols-outlined">inventory_2</span>
@@ -84,7 +84,7 @@
                 </tr>
             </thead>
             <tbody>
-                {% for r in recent_reservations %}
+                {% for r in stats.recent_reservations %}
                 <tr>
                     <td><strong>{{ r.name }}</strong></td>
                     <td>{{ r.date|date:"d M Y" }}, {{ r.time|time:"H:i" }}</td>

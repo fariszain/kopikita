@@ -1,6 +1,6 @@
 {% load static %}
 <!DOCTYPE html>
-<html class="dark" lang="en">
+<html class="dark" lang="en" translate="no">
 <head>
     <meta charset="utf-8"/>
     <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
@@ -146,8 +146,8 @@
         </div>
         <div class="flex flex-col w-full px-4 gap-2 overflow-y-auto hide-scrollbar">
             
-            <a href="{% url 'dashboard_index' %}" class="flex items-center gap-4 px-6 py-4 {% if request.resolver_match.url_name == 'dashboard_index' %}text-on-secondary-fixed bg-secondary rounded-full shadow-[0_0_20px_rgba(212,163,115,0.15)] scale-105 transition-transform font-bold{% else %}text-on-surface-variant hover:text-on-surface hover:bg-surface-container-highest/50 transition-all duration-300 rounded-full{% endif %} group">
-                <span class="material-symbols-outlined {% if request.resolver_match.url_name != 'dashboard_index' %}group-hover:text-tertiary transition-colors{% endif %}">dashboard</span>
+            <a href="{% url 'dashboard' %}" class="flex items-center gap-4 px-6 py-4 {% if request.resolver_match.url_name == 'dashboard' %}text-on-secondary-fixed bg-secondary rounded-full shadow-[0_0_20px_rgba(212,163,115,0.15)] scale-105 transition-transform font-bold{% else %}text-on-surface-variant hover:text-on-surface hover:bg-surface-container-highest/50 transition-all duration-300 rounded-full{% endif %} group">
+                <span class="material-symbols-outlined {% if request.resolver_match.url_name != 'dashboard' %}group-hover:text-tertiary transition-colors{% endif %}">dashboard</span>
                 <span class="font-label-caps text-label-caps">Dashboard</span>
             </a>
             
@@ -190,7 +190,7 @@
 
     <!-- Bottom Nav Bar for Mobile -->
     <nav class="md:hidden fixed bottom-0 left-0 right-0 glass-panel border-t-0 shadow-lg z-50 px-6 py-4 flex justify-between items-center rounded-t-3xl">
-        <a class="flex flex-col items-center gap-1 text-tertiary group" href="{% url 'dashboard_index' %}">
+        <a class="flex flex-col items-center gap-1 text-tertiary group" href="{% url 'dashboard' %}">
             <span class="material-symbols-outlined">dashboard</span>
         </a>
         <a class="flex flex-col items-center gap-1 text-on-surface-variant hover:text-on-surface transition-colors" href="{% url 'menu_list' %}">

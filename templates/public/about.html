@@ -1,99 +1,70 @@
 {% extends "public/base.html" %}
 {% load static %}
-
 {% block title %}{{ page_title }}{% endblock %}
 
 {% block content %}
-<section class="page-hero">
-    <div class="container">
-        <h1 class="page-hero-title">Tentang <span class="gradient-text">Kami</span></h1>
-        <p class="page-hero-subtitle">Cerita di balik secangkir kopi KopiKita</p>
-    </div>
-</section>
+<main class="flex-grow pt-24 md:pt-32 pb-32">
+    <!-- Hero Section -->
+    <section class="relative h-[50vh] min-h-[350px] w-full flex items-center justify-center mb-[80px] overflow-hidden">
+        <div class="absolute inset-0 z-0" style="background-image: url('https://images.unsplash.com/photo-1497935586351-b67a49e012bf?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80'); background-size: cover; background-position: center; background-attachment: fixed;">
+            <div class="absolute inset-0 bg-background/70 backdrop-blur-sm"></div>
+        </div>
+        <div class="relative z-10 text-center max-w-container-max mx-auto px-4 md:px-8">
+            <h1 class="font-display-lg-mobile md:font-display-lg text-display-lg-mobile md:text-display-lg text-inverse-surface mb-6">Cerita <span class="text-tertiary">Kami</span></h1>
+            <p class="font-body-lg text-body-lg text-on-surface-variant max-w-2xl mx-auto">Perjalanan KopiKita dalam menyajikan setiap cangkir kopi yang istimewa.</p>
+        </div>
+    </section>
 
-<section class="section about-section">
-    <div class="container">
-        <div class="about-grid">
-            <div class="about-content">
-                <span class="section-badge">Cerita Kami</span>
-                <h2>Perjalanan <span class="gradient-text">KopiKita</span></h2>
-                <p>{{ settings.about_text }}</p>
-                <p>Didirikan pada tahun 2021, KopiKita bermula dari sebuah mimpi sederhana: menyajikan kopi berkualitas tinggi dari biji-biji pilihan perkebunan terbaik Nusantara. Kami percaya bahwa setiap cangkir kopi memiliki cerita, dan kami ingin berbagi cerita itu dengan Anda.</p>
-                <p>Kami bermitra langsung dengan petani kopi lokal di Aceh Gayo, Toraja, Flores, dan Java untuk memastikan setiap biji kopi yang kami sajikan memiliki kualitas terbaik sekaligus mendukung kesejahteraan petani.</p>
-            </div>
-            <div class="about-image-grid">
-                <div class="about-img-card">
-                    <div class="about-img-placeholder">
-                        <span>🫘</span>
-                        <p>Biji Kopi Pilihan</p>
-                    </div>
-                </div>
-                <div class="about-img-card">
-                    <div class="about-img-placeholder">
-                        <span>☕</span>
-                        <p>Seduhan Sempurna</p>
-                    </div>
+    <section class="max-w-container-max mx-auto px-4 md:px-8 mb-24">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+            <div class="space-y-6">
+                <span class="font-label-caps text-label-caps text-tertiary tracking-widest uppercase">Perjalanan KopiKita</span>
+                <h2 class="font-headline-lg text-headline-lg text-inverse-surface">Dari Biji ke Cangkir</h2>
+                <div class="font-body-md text-body-md text-on-surface-variant space-y-4">
+                    <p>{{ settings.about_text }}</p>
+                    <p>Didirikan pada tahun 2021, KopiKita bermula dari sebuah mimpi sederhana: menyajikan kopi berkualitas tinggi dari biji-biji pilihan perkebunan terbaik Nusantara. Kami percaya bahwa setiap cangkir kopi memiliki cerita, dan kami ingin berbagi cerita itu dengan Anda.</p>
+                    <p>Kami bermitra langsung dengan petani kopi lokal di Aceh Gayo, Toraja, Flores, dan Java untuk memastikan setiap biji kopi yang kami sajikan memiliki kualitas terbaik sekaligus mendukung kesejahteraan petani.</p>
                 </div>
             </div>
+            <div class="grid grid-cols-2 gap-4">
+                <div class="aspect-square rounded-2xl overflow-hidden bg-surface-container-high relative group">
+                    <img src="https://images.unsplash.com/photo-1611162458324-aae1eb4129a4?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Biji Kopi" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                </div>
+                <div class="aspect-square rounded-2xl overflow-hidden bg-surface-container-high relative group mt-12">
+                    <img src="https://images.unsplash.com/photo-1541167760496-1628856ab772?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Barista" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                </div>
+            </div>
         </div>
-    </div>
-</section>
+    </section>
 
-<section class="section values-section">
-    <div class="container">
-        <div class="section-header">
-            <span class="section-badge">Nilai Kami</span>
-            <h2 class="section-title">Apa yang Kami <span class="gradient-text">Yakini</span></h2>
+    <section class="max-w-container-max mx-auto px-4 md:px-8">
+        <div class="text-center mb-16">
+            <span class="font-label-caps text-label-caps text-tertiary tracking-widest uppercase mb-4 block">Nilai Kami</span>
+            <h2 class="font-headline-lg text-headline-lg text-inverse-surface">Apa yang Kami Yakini</h2>
         </div>
-        <div class="values-grid">
-            <div class="value-card">
-                <div class="value-number">01</div>
-                <h3>Kualitas</h3>
-                <p>Kami tidak pernah berkompromi dengan kualitas. Setiap biji kopi diseleksi ketat dan dipanggang dengan presisi.</p>
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+            <!-- 4 Value Cards -->
+            <div class="bg-surface-container-low rounded-2xl p-8 border border-white/5 hover:border-tertiary/30 transition-all duration-300">
+                <span class="font-display-lg text-tertiary/20 block mb-4">01</span>
+                <h3 class="font-headline-md text-inverse-surface mb-3">Kualitas</h3>
+                <p class="font-body-md text-on-surface-variant">Kami tidak pernah berkompromi dengan kualitas. Setiap biji kopi diseleksi ketat dan dipanggang dengan presisi.</p>
             </div>
-            <div class="value-card">
-                <div class="value-number">02</div>
-                <h3>Keberlanjutan</h3>
-                <p>Mendukung petani lokal dan menggunakan kemasan ramah lingkungan adalah komitmen utama kami.</p>
+            <div class="bg-surface-container-low rounded-2xl p-8 border border-white/5 hover:border-tertiary/30 transition-all duration-300">
+                <span class="font-display-lg text-tertiary/20 block mb-4">02</span>
+                <h3 class="font-headline-md text-inverse-surface mb-3">Keberlanjutan</h3>
+                <p class="font-body-md text-on-surface-variant">Mendukung petani lokal dan menggunakan kemasan ramah lingkungan adalah komitmen utama kami.</p>
             </div>
-            <div class="value-card">
-                <div class="value-number">03</div>
-                <h3>Komunitas</h3>
-                <p>KopiKita bukan hanya kedai kopi, tapi ruang bagi komunitas untuk bertumbuh dan berinteraksi.</p>
+            <div class="bg-surface-container-low rounded-2xl p-8 border border-white/5 hover:border-tertiary/30 transition-all duration-300">
+                <span class="font-display-lg text-tertiary/20 block mb-4">03</span>
+                <h3 class="font-headline-md text-inverse-surface mb-3">Komunitas</h3>
+                <p class="font-body-md text-on-surface-variant">KopiKita bukan hanya kedai kopi, tapi ruang bagi komunitas untuk bertumbuh dan berinteraksi.</p>
             </div>
-            <div class="value-card">
-                <div class="value-number">04</div>
-                <h3>Inovasi</h3>
-                <p>Selalu bereksperimen dengan rasa baru sambil menghormati tradisi kopi Nusantara.</p>
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- Team Section -->
-<section class="section team-section">
-    <div class="container">
-        <div class="section-header">
-            <span class="section-badge">Tim Kami</span>
-            <h2 class="section-title">Di Balik <span class="gradient-text">KopiKita</span></h2>
-        </div>
-        <div class="team-grid">
-            <div class="team-card">
-                <div class="team-avatar">👨‍🍳</div>
-                <h4>Budi Santoso</h4>
-                <p class="team-role">Head Barista</p>
-            </div>
-            <div class="team-card">
-                <div class="team-avatar">👩‍💼</div>
-                <h4>Sari Dewi</h4>
-                <p class="team-role">Manager</p>
-            </div>
-            <div class="team-card">
-                <div class="team-avatar">👨‍🔬</div>
-                <h4>Andi Pratama</h4>
-                <p class="team-role">Coffee Expert</p>
+            <div class="bg-surface-container-low rounded-2xl p-8 border border-white/5 hover:border-tertiary/30 transition-all duration-300">
+                <span class="font-display-lg text-tertiary/20 block mb-4">04</span>
+                <h3 class="font-headline-md text-inverse-surface mb-3">Inovasi</h3>
+                <p class="font-body-md text-on-surface-variant">Selalu bereksperimen dengan rasa baru sambil menghormati tradisi kopi Nusantara.</p>
             </div>
         </div>
-    </div>
-</section>
+    </section>
+</main>
 {% endblock %}

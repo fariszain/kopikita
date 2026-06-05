@@ -4,51 +4,93 @@
 {% block title %}{{ page_title }}{% endblock %}
 
 {% block content %}
-<section class="page-hero">
-    <div class="container">
-        <h1 class="page-hero-title">Reservasi <span class="gradient-text">Meja</span></h1>
-        <p class="page-hero-subtitle">Pesan tempat Anda untuk pengalaman kopi yang istimewa</p>
-    </div>
-</section>
+<style>
+    .styled-form input, .styled-form textarea, .styled-form select {
+        width: 100%;
+        background: rgba(47, 41, 37, 0.5);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 0.75rem;
+        padding: 1rem;
+        color: #ece0db;
+        transition: all 0.3s;
+    }
+    .styled-form input:focus, .styled-form textarea:focus, .styled-form select:focus {
+        outline: none;
+        border-color: #f0bd8b;
+        background: rgba(47, 41, 37, 0.8);
+    }
+    /* Date and Time inputs need color-scheme dark to show calendar icon correctly */
+    .styled-form input[type="date"], .styled-form input[type="time"] {
+        color-scheme: dark;
+    }
+    .form-group { margin-bottom: 1.5rem; }
+    .form-label { display: block; margin-bottom: 0.5rem; color: #d0c4be; font-size: 0.875rem; font-family: 'Hanken Grotesk', sans-serif;}
+    .form-error { color: #ffb4ab; font-size: 0.75rem; margin-top: 0.25rem; display: block; }
+</style>
 
-<section class="section form-section">
-    <div class="container">
-        <div class="form-layout">
-            <div class="form-info">
-                <h3>Informasi Reservasi</h3>
-                <div class="info-items">
-                    <div class="info-item">
-                        <span class="info-icon">🕐</span>
+<main class="flex-grow pt-24 md:pt-32 pb-32">
+    <!-- Hero Section -->
+    <section class="relative h-[40vh] min-h-[300px] w-full flex items-center justify-center mb-[80px] overflow-hidden">
+        <div class="absolute inset-0 z-0" style="background-image: url('https://images.unsplash.com/photo-1554118811-1e0d58224f24?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80'); background-size: cover; background-position: center; background-attachment: fixed;">
+            <div class="absolute inset-0 bg-background/80 backdrop-blur-md"></div>
+        </div>
+        <div class="relative z-10 text-center max-w-container-max mx-auto px-4">
+            <h1 class="font-display-lg-mobile md:font-display-lg text-display-lg-mobile md:text-display-lg text-inverse-surface mb-6">Reservasi <span class="text-tertiary">Meja</span></h1>
+            <p class="font-body-lg text-body-lg text-on-surface-variant">Pesan tempat Anda untuk pengalaman kopi yang istimewa.</p>
+        </div>
+    </section>
+
+    <section class="max-w-5xl mx-auto px-4 md:px-8">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+            <!-- Info Card -->
+            <div class="bg-surface-container-low rounded-3xl p-10 border border-white/5 relative overflow-hidden h-fit">
+                <div class="absolute bottom-0 left-0 w-64 h-64 bg-tertiary/10 rounded-full blur-[80px] -ml-32 -mb-32"></div>
+                
+                <h3 class="font-headline-lg text-inverse-surface mb-8 relative z-10">Informasi Reservasi</h3>
+                
+                <div class="space-y-8 relative z-10">
+                    <div class="flex items-start gap-4">
+                        <div class="w-12 h-12 rounded-full bg-tertiary/20 text-tertiary flex items-center justify-center flex-shrink-0">
+                            <span class="material-symbols-outlined">schedule</span>
+                        </div>
                         <div>
-                            <strong>Jam Operasional</strong>
-                            <p>Setiap Hari, 07:00 - 22:00</p>
+                            <strong class="text-inverse-surface block mb-1">Jam Operasional</strong>
+                            <p class="text-on-surface-variant text-sm">Setiap Hari, 07:00 - 22:00</p>
                         </div>
                     </div>
-                    <div class="info-item">
-                        <span class="info-icon">👥</span>
+                    <div class="flex items-start gap-4">
+                        <div class="w-12 h-12 rounded-full bg-tertiary/20 text-tertiary flex items-center justify-center flex-shrink-0">
+                            <span class="material-symbols-outlined">groups</span>
+                        </div>
                         <div>
-                            <strong>Kapasitas</strong>
-                            <p>Maksimal 20 orang per reservasi</p>
+                            <strong class="text-inverse-surface block mb-1">Kapasitas</strong>
+                            <p class="text-on-surface-variant text-sm">Maksimal 20 orang per reservasi</p>
                         </div>
                     </div>
-                    <div class="info-item">
-                        <span class="info-icon">📞</span>
+                    <div class="flex items-start gap-4">
+                        <div class="w-12 h-12 rounded-full bg-tertiary/20 text-tertiary flex items-center justify-center flex-shrink-0">
+                            <span class="material-symbols-outlined">call</span>
+                        </div>
                         <div>
-                            <strong>Hubungi Kami</strong>
-                            <p>+62 812-3456-7890</p>
+                            <strong class="text-inverse-surface block mb-1">Hubungi Kami</strong>
+                            <p class="text-on-surface-variant text-sm">+62 812-3456-7890</p>
                         </div>
                     </div>
-                    <div class="info-item">
-                        <span class="info-icon">📍</span>
+                    <div class="flex items-start gap-4">
+                        <div class="w-12 h-12 rounded-full bg-tertiary/20 text-tertiary flex items-center justify-center flex-shrink-0">
+                            <span class="material-symbols-outlined">location_on</span>
+                        </div>
                         <div>
-                            <strong>Lokasi</strong>
-                            <p>Jl. Kopi Nikmat No. 42, Jakarta Selatan</p>
+                            <strong class="text-inverse-surface block mb-1">Lokasi</strong>
+                            <p class="text-on-surface-variant text-sm">Jl. Kopi Nikmat No. 42, Jakarta Selatan</p>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="form-card">
-                <h3>Form Reservasi</h3>
+
+            <!-- Form Card -->
+            <div class="bg-[#1A1512] rounded-3xl p-10 border border-outline-variant/20 shadow-2xl">
+                <h3 class="font-headline-lg text-inverse-surface mb-8">Form Reservasi</h3>
                 <form method="POST" class="styled-form">
                     {% csrf_token %}
                     {% for field in form %}
@@ -60,13 +102,13 @@
                         {% endif %}
                     </div>
                     {% endfor %}
-                    <button type="submit" class="btn btn-primary btn-block">
+                    <button type="submit" class="w-full py-4 mt-4 rounded-full bg-tertiary text-tertiary-container hover:bg-[#d8a474] font-label-caps text-label-caps tracking-widest uppercase transition-all duration-300 flex items-center justify-center gap-2">
                         <span>Kirim Reservasi</span>
-                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                        <span class="material-symbols-outlined text-sm">event_available</span>
                     </button>
                 </form>
             </div>
         </div>
-    </div>
-</section>
+    </section>
+</main>
 {% endblock %}

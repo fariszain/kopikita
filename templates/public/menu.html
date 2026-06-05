@@ -36,7 +36,7 @@
 
     <!-- Menu Grid (Bento Style) -->
     <div class="grid grid-cols-1 md:grid-cols-12 gap-gutter">
-        {% for item in items %}
+        {% for item in menu_items %}
         <article class="menu-item md:col-span-{% cycle '8' '4' '4' '4' '4' %} bg-[#1A1512] rounded-xl p-8 relative overflow-hidden menu-card glow-hover border border-outline-variant/20 flex flex-col {% if forloop.counter0|divisibleby:5 %}md:flex-row items-center gap-8{% endif %}" data-category="{{ item.category.name }}" style="animation-delay: 0.{{ forloop.counter }}s;">
             <div class="w-full {% if forloop.counter0|divisibleby:5 %}md:w-1/2{% else %}aspect-square mb-6 mx-auto w-3/4{% endif %} flex-shrink-0 card-image-wrapper">
                 {% if item.image %}
