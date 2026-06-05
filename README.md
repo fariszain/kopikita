@@ -15,7 +15,7 @@ KopiKita adalah aplikasi web lengkap untuk mengelola kedai kopi yang terdiri dar
 | ------------- | ------------------------------ |
 | **Framework** | Django 6.0 (Python)            |
 | **Database**  | SQLite3                        |
-| **Frontend**  | HTML5, Vanilla CSS, JavaScript |
+| **Frontend**  | HTML5, Tailwind CSS, Vanilla JS |
 | **Font**      | Google Fonts (Inter, Playfair) |
 
 ## 📁 Struktur Folder
@@ -144,4 +144,4 @@ Panel admin dengan sidebar navigasi, statistik real-time, dan tabel data yang re
 
 ## 👤 Dibuat Oleh
 
-**[Nama Anda]** — Proyek Perangkat Lunak, 2026
+**Zeyn** — Proyek Perangkat Lunak, 2026
