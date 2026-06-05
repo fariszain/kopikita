@@ -47,6 +47,13 @@
                         </td>
                         <td>
                             <div class="table-actions">
+                                {% if r.status == 'pending' %}
+                                <a href="{% url 'reservation_approve' r.pk %}" class="btn btn-sm" style="background-color: #2e7d32; color: white; font-weight: bold; border: none;">✓ Terima</a>
+                                <a href="{% url 'reservation_cancel' r.pk %}" class="btn btn-sm" style="background-color: #d84315; color: white; font-weight: bold; border: none;">✗ Batalkan</a>
+                                {% endif %}
+                                {% if r.status == 'confirmed' %}
+                                <a href="{% url 'reservation_complete' r.pk %}" class="btn btn-sm" style="background-color: #0288d1; color: white; font-weight: bold; border: none;">✔️ Selesai</a>
+                                {% endif %}
                                 <a href="{% url 'reservation_edit' r.pk %}" class="btn btn-outline btn-sm">✏️ Edit</a>
                                 <a href="{% url 'reservation_delete' r.pk %}" class="btn btn-danger btn-sm">🗑️</a>
                             </div>

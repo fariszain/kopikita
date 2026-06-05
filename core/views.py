@@ -394,6 +394,36 @@ def reservation_delete(request, pk):
     return render(request, 'dashboard/reservation_delete.html', context)
 
 
+@login_required
+def reservation_approve(request, pk):
+    """Konfirmasi / Terima Reservasi"""
+    reservation = get_object_or_404(Reservation, pk=pk)
+    reservation.status = 'confirmed'
+    reservation.save()
+    messages.success(request, f'✅ Reservasi "{reservation.name}" berhasil dikonfirmasi!')
+    return redirect('reservation_list')
+
+
+@login_required
+def reservation_cancel(request, pk):
+    """Batalkan Reservasi"""
+    reservation = get_object_or_404(Reservation, pk=pk)
+    reservation.status = 'cancelled'
+    reservation.save()
+    messages.success(request, f'❌ Reservasi "{reservation.name}" telah dibatalkan!')
+    return redirect('reservation_list')
+
+
+@login_required
+def reservation_complete(request, pk):
+    """Menandai Reservasi sebagai Selesai"""
+    reservation = get_object_or_404(Reservation, pk=pk)
+    reservation.status = 'completed'
+    reservation.save()
+    messages.success(request, f'✔️ Reservasi "{reservation.name}" telah selesai!')
+    return redirect('reservation_list')
+
+
 # --- Contact Messages ---
 
 @login_required

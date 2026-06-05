@@ -65,7 +65,7 @@ kopikita/
 ### 1. Clone Repository
 
 ```bash
-git clone https://github.com/username/kopikita.git
+git clone https://github.com/fariszain/kopikita.git
 cd kopikita
 ```
 

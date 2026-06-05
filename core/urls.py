@@ -32,6 +32,9 @@ urlpatterns = [
     path('dashboard/reservasi/', views.reservation_list, name='reservation_list'),
     path('dashboard/reservasi/<int:pk>/edit/', views.reservation_edit, name='reservation_edit'),
     path('dashboard/reservasi/<int:pk>/hapus/', views.reservation_delete, name='reservation_delete'),
+    path('dashboard/reservasi/<int:pk>/approve/', views.reservation_approve, name='reservation_approve'),
+    path('dashboard/reservasi/<int:pk>/cancel/', views.reservation_cancel, name='reservation_cancel'),
+    path('dashboard/reservasi/<int:pk>/complete/', views.reservation_complete, name='reservation_complete'),
 
     # Contact Messages
     path('dashboard/pesan/', views.message_list, name='message_list'),
