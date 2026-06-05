@@ -1,0 +1,42 @@
+{% extends "dashboard/base.html" %}
+
+{% block title %}{{ page_title }}{% endblock %}
+{% block page_title %}{{ page_title }}{% endblock %}
+
+{% block content %}
+<div class="content-header">
+    <a href="{% url 'message_list' %}" class="btn btn-outline btn-sm">← Kembali</a>
+</div>
+
+<div class="dash-card">
+    <div class="dash-card-header">
+        <h3>💬 {{ msg.subject }}</h3>
+        <span class="message-date">{{ msg.created_at|date:"d M Y, H:i" }}</span>
+    </div>
+    <div class="dash-card-body">
+        <div class="message-detail">
+            <div class="message-meta">
+                <div class="meta-item">
+                    <span class="meta-label">Dari:</span>
+                    <span class="meta-value">{{ msg.name }} ({{ msg.email }})</span>
+                </div>
+                <div class="meta-item">
+                    <span class="meta-label">Subjek:</span>
+                    <span class="meta-value">{{ msg.subject }}</span>
+                </div>
+                <div class="meta-item">
+                    <span class="meta-label">Tanggal:</span>
+                    <span class="meta-value">{{ msg.created_at|date:"d M Y, H:i" }}</span>
+                </div>
+            </div>
+            <div class="message-body">
+                <p>{{ msg.message|linebreaks }}</p>
+            </div>
+            <div class="message-actions-footer">
+                <a href="mailto:{{ msg.email }}?subject=Re: {{ msg.subject }}" class="btn btn-primary">✉️ Balas via Email</a>
+                <a href="{% url 'message_delete' msg.pk %}" class="btn btn-danger">🗑️ Hapus</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

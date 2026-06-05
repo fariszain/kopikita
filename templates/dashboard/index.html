@@ -1,0 +1,107 @@
+{% extends "dashboard/base.html" %}
+
+{% block title %}Dashboard Overview{% endblock %}
+{% block page_title %}Dashboard{% endblock %}
+
+{% block content %}
+<!-- Page Header -->
+<div class="mb-12">
+    <h2 class="font-headline-lg text-headline-lg text-on-surface mb-2">Overview</h2>
+    <p class="font-body-md text-body-md text-on-surface-variant">Welcome back. Here's what's happening today.</p>
+</div>
+
+<!-- Stats Bento Grid -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16">
+    <!-- Stat Card 1 -->
+    <div class="glass-panel rounded-2xl p-8 flex flex-col justify-between h-48 relative overflow-hidden group hover:border-tertiary/30 transition-colors duration-500">
+        <div class="flex justify-between items-start z-10">
+            <div>
+                <p class="font-label-caps text-label-caps text-on-surface-variant mb-2">Total Menus</p>
+                <h3 class="font-headline-md text-headline-md text-on-surface">{{ stats.total_menus }}</h3>
+            </div>
+            <div class="w-10 h-10 rounded-full bg-tertiary/10 flex items-center justify-center text-tertiary group-hover:glow-active transition-all duration-500">
+                <span class="material-symbols-outlined">inventory_2</span>
+            </div>
+        </div>
+        <div class="absolute bottom-0 left-0 w-full h-16 opacity-30 z-0">
+            <svg class="w-full h-full stroke-tertiary fill-none" preserveAspectRatio="none" stroke-width="2" viewBox="0 0 100 30">
+                <path d="M0,30 Q10,20 20,25 T40,15 T60,20 T80,5 T100,10"></path>
+            </svg>
+        </div>
+    </div>
+    
+    <!-- Stat Card 2 -->
+    <div class="glass-panel rounded-2xl p-8 flex flex-col justify-between h-48 relative overflow-hidden group hover:border-tertiary/30 transition-colors duration-500">
+        <div class="flex justify-between items-start z-10">
+            <div>
+                <p class="font-label-caps text-label-caps text-on-surface-variant mb-2">Pending Reservations</p>
+                <h3 class="font-headline-md text-headline-md text-on-surface">{{ stats.pending_reservations }}</h3>
+            </div>
+            <div class="w-10 h-10 rounded-full bg-tertiary/10 flex items-center justify-center text-tertiary group-hover:glow-active transition-all duration-500">
+                <span class="material-symbols-outlined">event</span>
+            </div>
+        </div>
+        <div class="absolute bottom-0 left-0 w-full h-16 opacity-30 z-0">
+            <svg class="w-full h-full stroke-tertiary fill-none" preserveAspectRatio="none" stroke-width="2" viewBox="0 0 100 30">
+                <path d="M0,30 Q15,10 30,20 T60,10 T80,25 T100,5"></path>
+            </svg>
+        </div>
+    </div>
+    
+    <!-- Stat Card 3 -->
+    <div class="glass-panel rounded-2xl p-8 flex flex-col justify-between h-48 relative overflow-hidden group hover:border-tertiary/30 transition-colors duration-500">
+        <div class="flex justify-between items-start z-10">
+            <div>
+                <p class="font-label-caps text-label-caps text-on-surface-variant mb-2">Unread Messages</p>
+                <h3 class="font-headline-md text-headline-md text-on-surface">{{ stats.unread_messages }}</h3>
+            </div>
+            <div class="w-10 h-10 rounded-full bg-tertiary/10 flex items-center justify-center text-tertiary group-hover:glow-active transition-all duration-500">
+                <span class="material-symbols-outlined">chat_bubble</span>
+            </div>
+        </div>
+        <div class="absolute bottom-0 left-0 w-full h-16 opacity-30 z-0">
+            <svg class="w-full h-full stroke-tertiary fill-none" preserveAspectRatio="none" stroke-width="2" viewBox="0 0 100 30">
+                <path d="M0,30 Q20,25 40,15 T60,25 T80,10 T100,20"></path>
+            </svg>
+        </div>
+    </div>
+</div>
+
+<!-- Table Section (Using Vanilla CSS from dashboard.css) -->
+<div class="glass-panel rounded-2xl p-8 mb-16" style="border: 1px solid var(--d-border);">
+    <div class="flex justify-between items-center mb-8">
+        <h3 class="font-headline-md text-headline-md text-on-surface text-2xl">Recent Reservations</h3>
+        <a href="{% url 'reservation_list' %}" class="font-label-caps text-label-caps text-tertiary hover:text-white transition-colors">View All</a>
+    </div>
+    <div class="dash-table-wrap">
+        <table class="dash-table">
+            <thead>
+                <tr>
+                    <th>Customer Name</th>
+                    <th>Date & Time</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for r in recent_reservations %}
+                <tr>
+                    <td><strong>{{ r.name }}</strong></td>
+                    <td>{{ r.date|date:"d M Y" }}, {{ r.time|time:"H:i" }}</td>
+                    <td>
+                        <span class="status-badge status-{{ r.status }}">{{ r.get_status_display }}</span>
+                    </td>
+                    <td>
+                        <a href="{% url 'reservation_edit' r.pk %}" class="btn btn-outline btn-sm">Manage</a>
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="4" style="text-align: center; padding: 20px;">No recent reservations.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

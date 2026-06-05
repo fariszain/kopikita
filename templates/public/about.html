@@ -1,0 +1,99 @@
+{% extends "public/base.html" %}
+{% load static %}
+
+{% block title %}{{ page_title }}{% endblock %}
+
+{% block content %}
+<section class="page-hero">
+    <div class="container">
+        <h1 class="page-hero-title">Tentang <span class="gradient-text">Kami</span></h1>
+        <p class="page-hero-subtitle">Cerita di balik secangkir kopi KopiKita</p>
+    </div>
+</section>
+
+<section class="section about-section">
+    <div class="container">
+        <div class="about-grid">
+            <div class="about-content">
+                <span class="section-badge">Cerita Kami</span>
+                <h2>Perjalanan <span class="gradient-text">KopiKita</span></h2>
+                <p>{{ settings.about_text }}</p>
+                <p>Didirikan pada tahun 2021, KopiKita bermula dari sebuah mimpi sederhana: menyajikan kopi berkualitas tinggi dari biji-biji pilihan perkebunan terbaik Nusantara. Kami percaya bahwa setiap cangkir kopi memiliki cerita, dan kami ingin berbagi cerita itu dengan Anda.</p>
+                <p>Kami bermitra langsung dengan petani kopi lokal di Aceh Gayo, Toraja, Flores, dan Java untuk memastikan setiap biji kopi yang kami sajikan memiliki kualitas terbaik sekaligus mendukung kesejahteraan petani.</p>
+            </div>
+            <div class="about-image-grid">
+                <div class="about-img-card">
+                    <div class="about-img-placeholder">
+                        <span>🫘</span>
+                        <p>Biji Kopi Pilihan</p>
+                    </div>
+                </div>
+                <div class="about-img-card">
+                    <div class="about-img-placeholder">
+                        <span>☕</span>
+                        <p>Seduhan Sempurna</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="section values-section">
+    <div class="container">
+        <div class="section-header">
+            <span class="section-badge">Nilai Kami</span>
+            <h2 class="section-title">Apa yang Kami <span class="gradient-text">Yakini</span></h2>
+        </div>
+        <div class="values-grid">
+            <div class="value-card">
+                <div class="value-number">01</div>
+                <h3>Kualitas</h3>
+                <p>Kami tidak pernah berkompromi dengan kualitas. Setiap biji kopi diseleksi ketat dan dipanggang dengan presisi.</p>
+            </div>
+            <div class="value-card">
+                <div class="value-number">02</div>
+                <h3>Keberlanjutan</h3>
+                <p>Mendukung petani lokal dan menggunakan kemasan ramah lingkungan adalah komitmen utama kami.</p>
+            </div>
+            <div class="value-card">
+                <div class="value-number">03</div>
+                <h3>Komunitas</h3>
+                <p>KopiKita bukan hanya kedai kopi, tapi ruang bagi komunitas untuk bertumbuh dan berinteraksi.</p>
+            </div>
+            <div class="value-card">
+                <div class="value-number">04</div>
+                <h3>Inovasi</h3>
+                <p>Selalu bereksperimen dengan rasa baru sambil menghormati tradisi kopi Nusantara.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Team Section -->
+<section class="section team-section">
+    <div class="container">
+        <div class="section-header">
+            <span class="section-badge">Tim Kami</span>
+            <h2 class="section-title">Di Balik <span class="gradient-text">KopiKita</span></h2>
+        </div>
+        <div class="team-grid">
+            <div class="team-card">
+                <div class="team-avatar">👨‍🍳</div>
+                <h4>Budi Santoso</h4>
+                <p class="team-role">Head Barista</p>
+            </div>
+            <div class="team-card">
+                <div class="team-avatar">👩‍💼</div>
+                <h4>Sari Dewi</h4>
+                <p class="team-role">Manager</p>
+            </div>
+            <div class="team-card">
+                <div class="team-avatar">👨‍🔬</div>
+                <h4>Andi Pratama</h4>
+                <p class="team-role">Coffee Expert</p>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

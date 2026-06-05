@@ -1,0 +1,22 @@
+{% extends "dashboard/base.html" %}
+
+{% block title %}{{ page_title }}{% endblock %}
+{% block page_title %}{{ page_title }}{% endblock %}
+
+{% block content %}
+<div class="dash-card">
+    <div class="dash-card-body">
+        <div class="delete-confirm">
+            <div class="delete-icon">⚠️</div>
+            <h3>Hapus Pesan</h3>
+            <p>Apakah Anda yakin ingin menghapus pesan <strong>"{{ msg.subject }}"</strong> dari {{ msg.name }}?</p>
+            <p class="delete-warning">Tindakan ini tidak dapat dibatalkan.</p>
+            <form method="POST" class="delete-actions">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-danger">🗑️ Ya, Hapus</button>
+                <a href="{% url 'message_list' %}" class="btn btn-outline">Batal</a>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,254 @@
+{% load static %}
+<!DOCTYPE html>
+<html class="dark scroll-smooth" lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>{% block title %}KopiKita | Artisanal Precision{% endblock %}</title>
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;700&family=Playfair+Display:wght@500;600&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+    
+    <!-- Tailwind Config from Stitch -->
+    <script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "on-secondary-fixed": "#1d1c0d",
+                      "error": "#ffb4ab",
+                      "surface-container": "#241e1b",
+                      "on-surface-variant": "#d0c4be",
+                      "on-background": "#ece0db",
+                      "outline-variant": "#4d4541",
+                      "secondary-fixed-dim": "#cac7af",
+                      "on-primary": "#352f2c",
+                      "inverse-surface": "#ece0db",
+                      "on-primary-container": "#7f7773",
+                      "secondary": "#cac7af",
+                      "error-container": "#93000a",
+                      "on-secondary": "#323120",
+                      "tertiary": "#f0bd8b",
+                      "surface-container-highest": "#3a3330",
+                      "primary-fixed": "#ebe0db",
+                      "on-error": "#690005",
+                      "primary-container": "#0c0806",
+                      "on-tertiary-container": "#9b7045",
+                      "surface-tint": "#cfc4c0",
+                      "on-surface": "#ece0db",
+                      "on-primary-fixed-variant": "#4c4542",
+                      "tertiary-fixed-dim": "#f0bd8b",
+                      "secondary-container": "#494835",
+                      "surface-container-low": "#201a17",
+                      "surface-container-high": "#2f2925",
+                      "tertiary-container": "#120600",
+                      "inverse-primary": "#645d59",
+                      "on-tertiary-fixed-variant": "#623f18",
+                      "on-primary-fixed": "#201b18",
+                      "on-tertiary-fixed": "#2c1600",
+                      "on-secondary-fixed-variant": "#494835",
+                      "tertiary-fixed": "#ffdcbd",
+                      "on-tertiary": "#482904",
+                      "surface-variant": "#3a3330",
+                      "on-secondary-container": "#b9b69e",
+                      "background": "#17120f",
+                      "surface": "#17120f",
+                      "primary-fixed-dim": "#cfc4c0",
+                      "surface-dim": "#17120f",
+                      "inverse-on-surface": "#352f2c",
+                      "primary": "#cfc4c0",
+                      "outline": "#998f89",
+                      "on-error-container": "#ffdad6",
+                      "surface-container-lowest": "#120d0a",
+                      "secondary-fixed": "#e7e3ca",
+                      "surface-bright": "#3e3834"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "unit": "8px",
+                      "margin-desktop": "64px",
+                      "margin-mobile": "20px",
+                      "gutter": "24px",
+                      "container-max": "1280px"
+              },
+              "fontFamily": {
+                      "headline-md": ["Playfair Display"],
+                      "display-lg-mobile": ["Playfair Display"],
+                      "display-lg": ["Playfair Display"],
+                      "headline-lg": ["Playfair Display"],
+                      "body-lg": ["Hanken Grotesk"],
+                      "body-md": ["Hanken Grotesk"],
+                      "label-caps": ["Hanken Grotesk"]
+              },
+              "fontSize": {
+                      "headline-md": ["32px", { "lineHeight": "40px", "fontWeight": "500" }],
+                      "display-lg-mobile": ["48px", { "lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "600" }],
+                      "display-lg": ["72px", { "lineHeight": "80px", "letterSpacing": "-0.02em", "fontWeight": "600" }],
+                      "headline-lg": ["40px", { "lineHeight": "48px", "fontWeight": "500" }],
+                      "body-lg": ["18px", { "lineHeight": "28px", "letterSpacing": "0.01em", "fontWeight": "400" }],
+                      "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                      "label-caps": ["12px", { "lineHeight": "16px", "letterSpacing": "0.15em", "fontWeight": "700" }]
+              }
+            }
+          }
+        }
+    </script>
+    <style>
+        .noise-bg { position: relative; }
+        .noise-bg::before {
+            content: ""; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background-image: url('data:image/svg+xml,%3Csvg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"%3E%3Cfilter id="noiseFilter"%3E%3CfeTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="3" stitchTiles="stitch"/%3E%3C/filter%3E%3Crect width="100%25" height="100%25" filter="url(%23noiseFilter)"/%3E%3C/svg%3E');
+            opacity: var(--scroll-op, 0.05); pointer-events: none; z-index: 0; transition: opacity 0.3s ease;
+        }
+        .glass-panel { background: rgba(23, 18, 15, 0.4); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border: 1px solid rgba(254, 250, 224, 0.05); }
+        .primary-btn { transition: transform 0.3s cubic-bezier(0.25, 1, 0.5, 1), background-color 0.3s ease, box-shadow 0.3s ease; }
+        .primary-btn:hover { transform: scale(1.05); box-shadow: 0 0 20px rgba(212, 163, 115, 0.4); }
+        .primary-btn:active { transform: scale(0.95); }
+        .bento-item { transition: all 0.5s cubic-bezier(0.25, 1, 0.5, 1); }
+        .bento-item:hover { transform: scale(1.02); }
+        .bento-item:hover .bento-overlay { opacity: 1; }
+        .bento-item:hover img { transform: scale(1.05); }
+        .reveal { opacity: 0; transform: translateY(30px); transition: opacity 0.8s cubic-bezier(0.25, 1, 0.5, 1), transform 0.8s cubic-bezier(0.25, 1, 0.5, 1); }
+        .reveal.active { opacity: 1; transform: translateY(0); }
+        @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-20px); } }
+        .animate-float { animation: float 6s ease-in-out infinite; }
+        .animate-float-delay { animation: float 7s ease-in-out infinite 1s; }
+        nav { transition: background-color 0.3s ease, backdrop-filter 0.3s ease; }
+
+        /* Flash Message Overlays */
+        .flash-overlay {
+            position: fixed; top: 100px; right: 20px; z-index: 9999;
+            display: flex; flex-direction: column; gap: 10px;
+        }
+        .flash-msg {
+            padding: 15px 25px; border-radius: 8px; font-weight: 600; font-size: 14px;
+            backdrop-filter: blur(10px); color: #fff; box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+            animation: slideIn 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .flash-success { background: rgba(129, 199, 132, 0.2); border: 1px solid #81c784; color: #81c784; }
+        .flash-error { background: rgba(229, 115, 115, 0.2); border: 1px solid #e57373; color: #e57373; }
+        @keyframes slideIn { from { transform: translateX(100%); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
+    </style>
+</head>
+
+<body class="bg-background text-on-surface font-body-md antialiased overflow-x-hidden selection:bg-tertiary selection:text-primary-container">
+
+    <!-- Flash Messages -->
+    {% if messages %}
+    <div class="flash-overlay">
+        {% for message in messages %}
+            <div class="flash-msg flash-{{ message.tags }}">
+                {{ message }}
+            </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+
+    <!-- TopNavBar -->
+    <nav class="fixed top-6 left-1/2 -translate-x-1/2 w-[90%] max-w-7xl rounded-full border border-white/10 bg-white/5 backdrop-blur-xl shadow-2xl flex justify-between items-center px-8 py-4 z-50 transition-all duration-300" id="navbar">
+        <a href="{% url 'landing' %}" class="font-headline-md text-headline-md text-on-surface tracking-tighter">
+            KopiKita
+        </a>
+        <div class="hidden md:flex space-x-8">
+            <a class="font-label-caps text-label-caps text-on-surface/70 font-medium hover:text-tertiary hover:scale-105 transition-all duration-500 uppercase" href="{% url 'about' %}">About Us</a>
+            <a class="font-label-caps text-label-caps text-on-surface/70 font-medium hover:text-tertiary hover:scale-105 transition-all duration-500 uppercase" href="{% url 'menu' %}">Menu</a>
+            <a class="font-label-caps text-label-caps text-on-surface/70 font-medium hover:text-tertiary hover:scale-105 transition-all duration-500 uppercase" href="{% url 'contact' %}">Contact</a>
+        </div>
+        <a href="{% url 'reservation' %}" class="font-label-caps text-label-caps bg-secondary text-on-secondary px-6 py-3 rounded-full primary-btn magnetic-btn hover:bg-tertiary uppercase">
+            Reservation
+        </a>
+    </nav>
+
+    <!-- Dynamic Content -->
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-surface border-t border-white/5 w-full bg-surface-container-lowest reveal">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-unit-margin-desktop px-margin-mobile md:px-margin-desktop py-24 max-w-container-max mx-auto">
+            <div class="flex flex-col gap-6">
+                <div class="font-headline-lg text-headline-lg text-on-surface uppercase">KopiKita</div>
+                <p class="font-body-md text-on-surface-variant max-w-sm">Crafted for connoisseurs. A sanctuary for those who appreciate the quiet luxury of an exceptional cup.</p>
+            </div>
+            <div class="flex flex-col gap-4 md:col-start-3">
+                <span class="font-label-caps text-label-caps text-on-surface uppercase mb-2">Connect</span>
+                <a class="font-body-md text-on-surface-variant hover:text-tertiary transition-colors duration-300" href="#">Instagram</a>
+                <a class="font-body-md text-on-surface-variant hover:text-tertiary transition-colors duration-300" href="#">Brew Guides</a>
+                <a class="font-body-md text-on-surface-variant hover:text-tertiary transition-colors duration-300" href="{% url 'contact' %}">Contact</a>
+                <a class="font-body-md text-on-surface-variant hover:text-tertiary transition-colors duration-300" href="{% url 'dashboard_index' %}">Admin Login</a>
+            </div>
+            <div class="col-span-1 md:col-span-3 mt-12 pt-8 border-t border-white/5 text-center">
+                <p class="font-body-md text-on-surface-variant">© 2026 KopiKita. Final Machine Learning Lab.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Intersection Observer for scroll reveal
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if(entry.isIntersecting) {
+                        entry.target.classList.add('active');
+                    }
+                });
+            }, { threshold: 0.1 });
+            
+            document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+            // Magnetic Button Effect
+            const magneticButtons = document.querySelectorAll('.magnetic-btn');
+            magneticButtons.forEach(btn => {
+                btn.addEventListener('mousemove', e => {
+                    const rect = btn.getBoundingClientRect();
+                    const x = e.clientX - rect.left - rect.width / 2;
+                    const y = e.clientY - rect.top - rect.height / 2;
+                    btn.style.transform = `translate(${x * 0.2}px, ${y * 0.2}px) scale(1.05)`;
+                });
+                btn.addEventListener('mouseleave', () => {
+                    btn.style.transform = 'translate(0px, 0px) scale(1)';
+                });
+            });
+
+            // Scroll Effects for Navbar and Background Grain
+            window.addEventListener('scroll', () => {
+                const scrollY = window.scrollY;
+                const navbar = document.getElementById('navbar');
+                
+                if (scrollY > 50) {
+                    navbar.classList.add('bg-surface-container/60', 'backdrop-blur-2xl', 'border-white/20');
+                    navbar.classList.remove('bg-white/5', 'backdrop-blur-xl', 'border-white/10');
+                } else {
+                    navbar.classList.remove('bg-surface-container/60', 'backdrop-blur-2xl', 'border-white/20');
+                    navbar.classList.add('bg-white/5', 'backdrop-blur-xl', 'border-white/10');
+                }
+
+                const newOpacity = Math.max(0.02, 0.05 - scrollY * 0.00005);
+                document.documentElement.style.setProperty('--scroll-op', newOpacity);
+            });
+
+            // Flash Message Auto Dismiss
+            setTimeout(() => {
+                document.querySelectorAll('.flash-msg').forEach(msg => {
+                    msg.style.transition = 'all 0.5s cubic-bezier(0.16, 1, 0.3, 1)';
+                    msg.style.opacity = '0';
+                    msg.style.transform = 'translateX(120%)';
+                    setTimeout(() => msg.remove(), 500);
+                });
+            }, 4000);
+        });
+    </script>
+    {% block extra_js %}{% endblock %}
+</body>
+</html>

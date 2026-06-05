@@ -1,0 +1,92 @@
+{% extends "public/base.html" %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="relative min-h-screen flex items-center justify-center pt-32 pb-24 px-margin-mobile md:px-margin-desktop noise-bg">
+    <div class="absolute inset-0 z-0 overflow-hidden">
+        <div class="absolute top-1/4 left-1/4 w-[40vw] h-[40vw] bg-tertiary/5 rounded-full blur-[100px] mix-blend-screen animate-float"></div>
+        <div class="absolute bottom-1/4 right-1/4 w-[30vw] h-[30vw] bg-secondary/5 rounded-full blur-[80px] mix-blend-screen animate-float-delay"></div>
+    </div>
+    <div class="relative z-10 max-w-container-max w-full grid grid-cols-1 md:grid-cols-12 gap-gutter items-center reveal">
+        <div class="md:col-span-5 flex flex-col items-start gap-8">
+            <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-tertiary/30 bg-tertiary/10 backdrop-blur-sm">
+                <span class="material-symbols-outlined text-tertiary text-sm" style="font-variation-settings: 'FILL' 1;">local_cafe</span>
+                <span class="font-label-caps text-label-caps text-tertiary uppercase">Artisanal Precision</span>
+            </div>
+            <h1 class="font-display-lg-mobile md:font-display-lg text-on-surface">A Cup of <br/> <span class="text-tertiary italic font-light">Happiness</span></h1>
+            <p class="font-body-lg text-on-surface-variant max-w-md">
+                Experience the raw, organic nature of specialty coffee curated for the discerning connoisseur. A symphony of flavor in every pour.
+            </p>
+            <div class="flex gap-4 mt-4">
+                <a href="{% url 'menu' %}" class="font-label-caps text-label-caps bg-secondary text-on-secondary px-8 py-4 rounded-full primary-btn magnetic-btn hover:bg-tertiary uppercase">
+                    Explore Menu
+                </a>
+            </div>
+        </div>
+        <div class="md:col-span-7 relative mt-16 md:mt-0 h-[60vh] md:h-[80vh] w-full rounded-2xl overflow-hidden glass-panel p-4">
+            <div class="w-full h-full rounded-xl overflow-hidden relative">
+                <img alt="Coffee Bar" class="w-full h-full object-cover" src="https://images.unsplash.com/photo-1497935586351-b67a49e012bf?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80"/>
+                <div class="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent opacity-60"></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Bento Grid Menu Section -->
+<section class="py-32 px-margin-mobile md:px-margin-desktop bg-surface-container-lowest noise-bg">
+    <div class="max-w-container-max mx-auto reveal">
+        <div class="flex flex-col md:flex-row justify-between items-end mb-16 gap-8">
+            <div>
+                <h2 class="font-headline-lg text-on-surface mb-4">Curated Offerings</h2>
+                <p class="font-body-lg text-on-surface-variant max-w-xl">Meticulously sourced beans, precision roasting, and flawless extraction. A gallery of our signature pours.</p>
+            </div>
+            <a href="{% url 'menu' %}" class="font-label-caps text-label-caps text-tertiary flex items-center gap-2 hover:gap-4 transition-all uppercase">
+                Full Menu <span class="material-symbols-outlined">arrow_forward</span>
+            </a>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-12 auto-rows-[300px] md:auto-rows-[400px] gap-6">
+            <!-- Large Item -->
+            <div class="md:col-span-8 rounded-2xl overflow-hidden relative bento-item group glass-panel reveal">
+                <img alt="The Golden Swan" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" src="https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"/>
+                <div class="absolute inset-0 bg-gradient-to-t from-background/90 via-background/20 to-transparent bento-overlay opacity-80 md:opacity-0 transition-opacity duration-500"></div>
+                <div class="absolute inset-0 p-8 flex flex-col justify-end opacity-100 md:opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-10">
+                    <span class="font-label-caps text-label-caps text-tertiary mb-2 uppercase">Signature</span>
+                    <h3 class="font-headline-md text-on-surface mb-2">The Golden Swan</h3>
+                    <p class="font-body-md text-on-surface-variant">A delicate balance of our house espresso blend and micro-foamed milk, finished with edible gold flake.</p>
+                </div>
+            </div>
+            
+            <!-- Small Item 1 -->
+            <div class="md:col-span-4 rounded-2xl overflow-hidden relative bento-item group glass-panel bg-surface-container reveal">
+                <div class="absolute inset-0 p-8 flex flex-col justify-center items-center text-center z-10">
+                    <span class="material-symbols-outlined text-tertiary text-4xl mb-6" style="font-variation-settings: 'FILL' 1;">water_drop</span>
+                    <h3 class="font-headline-md text-on-surface mb-4">Single Origin Pour Over</h3>
+                    <p class="font-body-md text-on-surface-variant">Slow extraction highlighting the subtle, fruity notes of Ethiopian Yirgacheffe.</p>
+                </div>
+            </div>
+            
+            <!-- Small Item 2 -->
+            <div class="md:col-span-5 rounded-2xl overflow-hidden relative bento-item group glass-panel bg-surface-container reveal">
+                <div class="absolute inset-0 p-8 flex flex-col justify-center items-start z-10 border border-white/5">
+                    <span class="font-label-caps text-label-caps text-tertiary mb-4 uppercase">Seasonal</span>
+                    <h3 class="font-headline-md text-on-surface mb-2">Cold Brew Reserve</h3>
+                    <div class="w-full h-[1px] bg-white/10 my-4"></div>
+                    <p class="font-body-md text-on-surface-variant">Steeped for 24 hours. Smooth, bold, and served over clear artisanal ice.</p>
+                </div>
+            </div>
+            
+            <!-- Medium Item -->
+            <div class="md:col-span-7 rounded-2xl overflow-hidden relative bento-item group glass-panel reveal">
+                <img alt="The Roastery Tour" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" src="https://images.unsplash.com/photo-1600093463592-8e36ae95ef56?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"/>
+                <div class="absolute inset-0 bg-gradient-to-t from-background/90 via-background/40 to-transparent bento-overlay opacity-80 md:opacity-0 transition-opacity duration-500"></div>
+                <div class="absolute inset-0 p-8 flex flex-col justify-end opacity-100 md:opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-10">
+                    <span class="font-label-caps text-label-caps text-tertiary mb-2 uppercase">Experience</span>
+                    <h3 class="font-headline-md text-on-surface mb-2">The Roastery Tour</h3>
+                    <p class="font-body-md text-on-surface-variant">Witness the transformation from green bean to liquid gold. Guided tastings available daily.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

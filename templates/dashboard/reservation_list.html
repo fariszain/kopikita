@@ -1,0 +1,106 @@
+{% extends "dashboard/base.html" %}
+
+{% block title %}Kelola Reservasi{% endblock %}
+{% block page_title %}Kelola Reservasi{% endblock %}
+
+{% block content %}
+<div class="content-header">
+    <div class="content-header-left">
+        <div class="filter-tabs">
+            <a href="{% url 'reservation_list' %}" class="filter-tab {% if status_filter == 'all' %}active{% endif %}">Semua</a>
+            <a href="{% url 'reservation_list' %}?status=pending" class="filter-tab {% if status_filter == 'pending' %}active{% endif %}">⏳ Menunggu</a>
+            <a href="{% url 'reservation_list' %}?status=confirmed" class="filter-tab {% if status_filter == 'confirmed' %}active{% endif %}">✅ Dikonfirmasi</a>
+            <a href="{% url 'reservation_list' %}?status=completed" class="filter-tab {% if status_filter == 'completed' %}active{% endif %}">✔️ Selesai</a>
+            <a href="{% url 'reservation_list' %}?status=cancelled" class="filter-tab {% if status_filter == 'cancelled' %}active{% endif %}">❌ Dibatalkan</a>
+        </div>
+    </div>
+</div>
+
+<div class="dash-card">
+    <div class="dash-card-body">
+        {% if reservations %}
+        <div class="dash-table-wrap">
+            <table class="dash-table">
+                <thead>
+                    <tr>
+                        <th>Nama</th>
+                        <th>Email</th>
+                        <th>Tanggal</th>
+                        <th>Waktu</th>
+                        <th>Tamu</th>
+                        <th>Status</th>
+                        <th>Aksi</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for r in reservations %}
+                    <tr>
+                        <td><strong>{{ r.name }}</strong></td>
+                        <td>{{ r.email }}</td>
+                        <td>{{ r.date|date:"d M Y" }}</td>
+                        <td>{{ r.time|time:"H:i" }}</td>
+                        <td>{{ r.guests }} orang</td>
+                        <td>
+                            <span class="status-badge status-{{ r.status }}">
+                                {{ r.get_status_display }}
+                            </span>
+                        </td>
+                        <td>
+                            <div class="table-actions">
+                                <a href="{% url 'reservation_edit' r.pk %}" class="btn btn-outline btn-sm">✏️ Edit</a>
+                                <a href="{% url 'reservation_delete' r.pk %}" class="btn btn-danger btn-sm">🗑️</a>
+                            </div>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        
+        <!-- Pagination Controls -->
+        {% if reservations.has_other_pages %}
+        <div class="pagination">
+            {% if reservations.has_previous %}
+            <a href="?page={{ reservations.previous_page_number }}{% if status_filter %}&status={{ status_filter }}{% endif %}" class="btn btn-outline btn-sm">&laquo; Prev</a>
+            {% else %}
+            <span class="btn btn-outline btn-sm disabled" style="opacity: 0.5; pointer-events: none;">&laquo; Prev</span>
+            {% endif %}
+            
+            <span class="pagination-current">
+                Halaman {{ reservations.number }} dari {{ reservations.paginator.num_pages }}
+            </span>
+
+            {% if reservations.has_next %}
+            <a href="?page={{ reservations.next_page_number }}{% if status_filter %}&status={{ status_filter }}{% endif %}" class="btn btn-outline btn-sm">Next &raquo;</a>
+            {% else %}
+            <span class="btn btn-outline btn-sm disabled" style="opacity: 0.5; pointer-events: none;">Next &raquo;</span>
+            {% endif %}
+        </div>
+        
+        <style>
+            .pagination {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                gap: 15px;
+                margin-top: 25px;
+                padding-top: 20px;
+                border-top: 1px solid var(--d-border);
+            }
+            .pagination-current {
+                font-size: 13px;
+                color: var(--d-muted);
+                font-weight: 500;
+            }
+        </style>
+        {% endif %}
+        {% else %}
+        <div class="dash-empty">
+            <div class="empty-icon">📅</div>
+            <h3>Belum ada reservasi</h3>
+            <p>Reservasi dari pelanggan akan muncul di sini.</p>
+        </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

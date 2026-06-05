@@ -1,0 +1,130 @@
+{% extends "dashboard/base.html" %}
+
+{% block title %}Kelola Menu{% endblock %}
+{% block page_title %}Kelola Menu{% endblock %}
+
+{% block content %}
+<div class="content-header">
+    <div class="content-header-left">
+        <p class="content-subtitle">{{ total_items }} menu ditemukan</p>
+    </div>
+    <div class="content-header-right">
+        <form method="GET" class="search-form">
+            <input type="text" name="search" value="{{ search }}" placeholder="Cari menu..." class="form-input search-input">
+            <button type="submit" class="btn btn-outline btn-sm">🔍</button>
+        </form>
+        <a href="{% url 'menu_create' %}" class="btn btn-primary">
+            <span>+ Tambah Menu</span>
+        </a>
+    </div>
+</div>
+
+<div class="dash-card">
+    <div class="dash-card-body">
+        {% if items %}
+        <div class="dash-table-wrap">
+            <table class="dash-table">
+                <thead>
+                    <tr>
+                        <th>Menu</th>
+                        <th>Kategori</th>
+                        <th>Harga</th>
+                        <th>Status</th>
+                        <th>Unggulan</th>
+                        <th>Aksi</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in items %}
+                    <tr>
+                        <td>
+                            <div class="table-item-info">
+                                <div class="table-item-thumb">
+                                    {% if item.image %}
+                                    <img src="{{ item.image.url }}" alt="{{ item.name }}">
+                                    {% else %}
+                                    <span>{{ item.category.icon }}</span>
+                                    {% endif %}
+                                </div>
+                                <div>
+                                    <strong>{{ item.name }}</strong>
+                                    <small>{{ item.description|truncatewords:8 }}</small>
+                                </div>
+                            </div>
+                        </td>
+                        <td><span class="category-tag">{{ item.category.icon }} {{ item.category.name }}</span></td>
+                        <td><strong>Rp {{ item.price|floatformat:0 }}</strong></td>
+                        <td>
+                            {% if item.is_available %}
+                            <span class="status-badge status-confirmed">Tersedia</span>
+                            {% else %}
+                            <span class="status-badge status-cancelled">Habis</span>
+                            {% endif %}
+                        </td>
+                        <td>
+                            {% if item.is_featured %}
+                            <span class="star-badge">⭐</span>
+                            {% else %}
+                            <span class="star-badge-empty">☆</span>
+                            {% endif %}
+                        </td>
+                        <td>
+                            <div class="table-actions">
+                                <a href="{% url 'menu_edit' item.pk %}" class="btn btn-outline btn-sm">✏️ Edit</a>
+                                <a href="{% url 'menu_delete' item.pk %}" class="btn btn-danger btn-sm">🗑️</a>
+                            </div>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        
+        <!-- Pagination Controls -->
+        {% if items.has_other_pages %}
+        <div class="pagination">
+            {% if items.has_previous %}
+            <a href="?page={{ items.previous_page_number }}{% if search %}&search={{ search }}{% endif %}" class="btn btn-outline btn-sm">&laquo; Prev</a>
+            {% else %}
+            <span class="btn btn-outline btn-sm disabled" style="opacity: 0.5; pointer-events: none;">&laquo; Prev</span>
+            {% endif %}
+            
+            <span class="pagination-current">
+                Halaman {{ items.number }} dari {{ items.paginator.num_pages }}
+            </span>
+
+            {% if items.has_next %}
+            <a href="?page={{ items.next_page_number }}{% if search %}&search={{ search }}{% endif %}" class="btn btn-outline btn-sm">Next &raquo;</a>
+            {% else %}
+            <span class="btn btn-outline btn-sm disabled" style="opacity: 0.5; pointer-events: none;">Next &raquo;</span>
+            {% endif %}
+        </div>
+        
+        <style>
+            .pagination {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                gap: 15px;
+                margin-top: 25px;
+                padding-top: 20px;
+                border-top: 1px solid var(--d-border);
+            }
+            .pagination-current {
+                font-size: 13px;
+                color: var(--d-muted);
+                font-weight: 500;
+            }
+        </style>
+        {% endif %}
+        {% else %}
+        <div class="dash-empty">
+            <div class="empty-icon">🍽️</div>
+            <h3>Belum ada menu</h3>
+            <p>Mulai tambahkan menu pertama Anda.</p>
+            <a href="{% url 'menu_create' %}" class="btn btn-primary">+ Tambah Menu</a>
+        </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

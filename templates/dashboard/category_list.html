@@ -1,0 +1,68 @@
+{% extends "dashboard/base.html" %}
+
+{% block title %}Kelola Kategori{% endblock %}
+{% block page_title %}Kelola Kategori{% endblock %}
+
+{% block content %}
+<div class="content-header">
+    <div class="content-header-left">
+        <p class="content-subtitle">{{ categories.count }} kategori</p>
+    </div>
+    <div class="content-header-right">
+        <a href="{% url 'category_create' %}" class="btn btn-primary">
+            <span>+ Tambah Kategori</span>
+        </a>
+    </div>
+</div>
+
+<div class="dash-card">
+    <div class="dash-card-body">
+        {% if categories %}
+        <div class="dash-table-wrap">
+            <table class="dash-table">
+                <thead>
+                    <tr>
+                        <th>Icon</th>
+                        <th>Nama</th>
+                        <th>Deskripsi</th>
+                        <th>Jumlah Menu</th>
+                        <th>Status</th>
+                        <th>Aksi</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for cat in categories %}
+                    <tr>
+                        <td><span class="category-icon-big">{{ cat.icon }}</span></td>
+                        <td><strong>{{ cat.name }}</strong></td>
+                        <td>{{ cat.description|truncatewords:10|default:"-" }}</td>
+                        <td><span class="count-badge">{{ cat.item_count }}</span></td>
+                        <td>
+                            {% if cat.is_active %}
+                            <span class="status-badge status-confirmed">Aktif</span>
+                            {% else %}
+                            <span class="status-badge status-cancelled">Nonaktif</span>
+                            {% endif %}
+                        </td>
+                        <td>
+                            <div class="table-actions">
+                                <a href="{% url 'category_edit' cat.pk %}" class="btn btn-outline btn-sm">✏️ Edit</a>
+                                <a href="{% url 'category_delete' cat.pk %}" class="btn btn-danger btn-sm">🗑️</a>
+                            </div>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% else %}
+        <div class="dash-empty">
+            <div class="empty-icon">📁</div>
+            <h3>Belum ada kategori</h3>
+            <p>Tambahkan kategori untuk mengorganisir menu Anda.</p>
+            <a href="{% url 'category_create' %}" class="btn btn-primary">+ Tambah Kategori</a>
+        </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

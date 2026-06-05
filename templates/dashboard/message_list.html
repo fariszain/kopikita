@@ -1,0 +1,107 @@
+{% extends "dashboard/base.html" %}
+
+{% block title %}Pesan Masuk{% endblock %}
+{% block page_title %}Pesan Masuk{% endblock %}
+
+{% block content %}
+<div class="content-header">
+    <div class="content-header-left">
+        <div class="filter-tabs">
+            <a href="{% url 'message_list' %}" class="filter-tab {% if filter_type == 'all' %}active{% endif %}">Semua</a>
+            <a href="{% url 'message_list' %}?filter=unread" class="filter-tab {% if filter_type == 'unread' %}active{% endif %}">📬 Belum Dibaca</a>
+            <a href="{% url 'message_list' %}?filter=read" class="filter-tab {% if filter_type == 'read' %}active{% endif %}">📭 Sudah Dibaca</a>
+        </div>
+    </div>
+</div>
+
+<div class="dash-card">
+    <div class="dash-card-body">
+        {% if contact_messages %}
+        <div class="dash-table-wrap">
+            <table class="dash-table">
+                <thead>
+                    <tr>
+                        <th>Status</th>
+                        <th>Pengirim</th>
+                        <th>Subjek</th>
+                        <th>Tanggal</th>
+                        <th>Aksi</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for msg in contact_messages %}
+                    <tr class="{% if not msg.is_read %}row-unread{% endif %}">
+                        <td>
+                            {% if msg.is_read %}
+                            <span class="read-indicator read">📭</span>
+                            {% else %}
+                            <span class="read-indicator unread">📬</span>
+                            {% endif %}
+                        </td>
+                        <td>
+                            <div>
+                                <strong>{{ msg.name }}</strong>
+                                <small>{{ msg.email }}</small>
+                            </div>
+                        </td>
+                        <td>{{ msg.subject }}</td>
+                        <td>{{ msg.created_at|date:"d M Y, H:i" }}</td>
+                        <td>
+                            <div class="table-actions">
+                                <a href="{% url 'message_detail' msg.pk %}" class="btn btn-outline btn-sm">👁️ Baca</a>
+                                <a href="{% url 'message_delete' msg.pk %}" class="btn btn-danger btn-sm">🗑️</a>
+                            </div>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        
+        <!-- Pagination Controls -->
+        {% if contact_messages.has_other_pages %}
+        <div class="pagination">
+            {% if contact_messages.has_previous %}
+            <a href="?page={{ contact_messages.previous_page_number }}{% if filter_type %}&filter={{ filter_type }}{% endif %}" class="btn btn-outline btn-sm">&laquo; Prev</a>
+            {% else %}
+            <span class="btn btn-outline btn-sm disabled" style="opacity: 0.5; pointer-events: none;">&laquo; Prev</span>
+            {% endif %}
+            
+            <span class="pagination-current">
+                Halaman {{ contact_messages.number }} dari {{ contact_messages.paginator.num_pages }}
+            </span>
+
+            {% if contact_messages.has_next %}
+            <a href="?page={{ contact_messages.next_page_number }}{% if filter_type %}&filter={{ filter_type }}{% endif %}" class="btn btn-outline btn-sm">Next &raquo;</a>
+            {% else %}
+            <span class="btn btn-outline btn-sm disabled" style="opacity: 0.5; pointer-events: none;">Next &raquo;</span>
+            {% endif %}
+        </div>
+        
+        <style>
+            .pagination {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                gap: 15px;
+                margin-top: 25px;
+                padding-top: 20px;
+                border-top: 1px solid var(--d-border);
+            }
+            .pagination-current {
+                font-size: 13px;
+                color: var(--d-muted);
+                font-weight: 500;
+            }
+        </style>
+        {% endif %}
+        {% else %}
+        <div class="dash-empty">
+            <div class="empty-icon">💬</div>
+            <h3>Belum ada pesan</h3>
+            <p>Pesan dari pengunjung akan muncul di sini.</p>
+        </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

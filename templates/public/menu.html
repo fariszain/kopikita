@@ -1,0 +1,104 @@
+{% extends "public/base.html" %}
+
+{% block content %}
+<style>
+    .glass-panel { background: rgba(23, 18, 15, 0.4); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border: 1px solid rgba(254, 250, 224, 0.1); }
+    .glow-hover:hover { box-shadow: 0 0 20px rgba(212, 163, 115, 0.15); }
+    .card-image-wrapper { position: relative; z-index: 10; transform: translateY(-20px); transition: transform 0.5s ease; }
+    .menu-card:hover .card-image-wrapper { transform: translateY(-30px) scale(1.05); }
+    .add-btn { opacity: 0; transform: translateY(10px); transition: all 0.3s ease; }
+    .menu-card:hover .add-btn { opacity: 1; transform: translateY(0); }
+    @keyframes fadeScaleIn { from { opacity: 0; transform: scale(0.95) translateY(10px); } to { opacity: 1; transform: scale(1) translateY(0); } }
+    .menu-item { animation: fadeScaleIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards; opacity: 0; }
+    .parallax-bg { background-attachment: fixed; background-position: center; background-repeat: no-repeat; background-size: cover; }
+</style>
+
+<main class="flex-grow pt-24 md:pt-32 pb-32">
+<!-- Hero Section -->
+<section class="relative h-[60vh] min-h-[400px] w-full flex items-center justify-center mb-[120px] overflow-hidden">
+    <div class="absolute inset-0 z-0 parallax-bg" style="background-image: url('https://images.unsplash.com/photo-1511920170033-f8396924c348?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80');">
+        <div class="absolute inset-0 bg-background/70 backdrop-blur-sm"></div>
+    </div>
+    <div class="relative z-10 text-center max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop">
+        <h1 class="font-display-lg-mobile md:font-display-lg text-display-lg-mobile md:text-display-lg text-inverse-surface mb-6 opacity-0 animate-[fadeScaleIn_1s_ease-out_forwards]">Our Signature Menu</h1>
+        <p class="font-body-lg text-body-lg text-on-surface-variant max-w-2xl mx-auto opacity-0 animate-[fadeScaleIn_1s_ease-out_0.3s_forwards]">A curated selection of artisanal roasts and delicate pastries, crafted with absolute precision.</p>
+    </div>
+</section>
+
+<div class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop">
+    <!-- Category Filter -->
+    <div class="flex overflow-x-auto hide-scrollbar gap-4 mb-16 pb-4 -mx-margin-mobile px-margin-mobile md:mx-0 md:px-0 justify-start md:justify-center">
+        <button class="px-8 py-3 rounded-full font-label-caps text-label-caps tracking-widest whitespace-nowrap transition-all duration-300 bg-tertiary text-tertiary-container shadow-[0_0_20px_rgba(212,163,115,0.15)]" onclick="filterMenu('All')">All</button>
+        {% for category in categories %}
+        <button class="px-8 py-3 rounded-full font-label-caps text-label-caps tracking-widest whitespace-nowrap transition-all duration-300 glass-panel text-on-surface hover:text-tertiary glow-hover" onclick="filterMenu('{{ category.name }}')">{{ category.name }}</button>
+        {% endfor %}
+    </div>
+
+    <!-- Menu Grid (Bento Style) -->
+    <div class="grid grid-cols-1 md:grid-cols-12 gap-gutter">
+        {% for item in items %}
+        <article class="menu-item md:col-span-{% cycle '8' '4' '4' '4' '4' %} bg-[#1A1512] rounded-xl p-8 relative overflow-hidden menu-card glow-hover border border-outline-variant/20 flex flex-col {% if forloop.counter0|divisibleby:5 %}md:flex-row items-center gap-8{% endif %}" data-category="{{ item.category.name }}" style="animation-delay: 0.{{ forloop.counter }}s;">
+            <div class="w-full {% if forloop.counter0|divisibleby:5 %}md:w-1/2{% else %}aspect-square mb-6 mx-auto w-3/4{% endif %} flex-shrink-0 card-image-wrapper">
+                {% if item.image %}
+                <img src="{{ item.image.url }}" alt="{{ item.name }}" class="w-full aspect-square rounded-full object-cover shadow-2xl">
+                {% else %}
+                <div class="w-full aspect-square rounded-full bg-surface-container flex items-center justify-center shadow-2xl">
+                    <span class="material-symbols-outlined text-6xl text-tertiary/50">coffee_maker</span>
+                </div>
+                {% endif %}
+            </div>
+            <div class="flex flex-col flex-grow {% if forloop.counter0|divisibleby:5 %}w-full md:w-1/2 justify-center{% endif %}">
+                <div class="flex justify-between items-start mb-2">
+                    <span class="font-label-caps text-label-caps text-tertiary tracking-widest uppercase">{{ item.category.name }}</span>
+                    <span class="font-headline-md {% if not forloop.counter0|divisibleby:5 %}text-[24px]{% endif %} text-inverse-surface">Rp {{ item.price|floatformat:0 }}</span>
+                </div>
+                <h3 class="font-headline-md {% if forloop.counter0|divisibleby:5 %}md:font-headline-lg text-headline-lg-mobile md:text-headline-lg{% else %}text-[28px] leading-tight{% endif %} text-inverse-surface mb-3">{{ item.name }}</h3>
+                <p class="font-body-md text-body-md text-on-surface-variant mb-6 {% if not forloop.counter0|divisibleby:5 %}text-sm{% endif %}">{{ item.description }}</p>
+                <div class="flex items-center {% if forloop.counter0|divisibleby:5 %}gap-4{% else %}justify-between{% endif %} mt-auto add-btn">
+                    <a href="{% url 'reservation' %}?menu={{ item.id }}" class="{% if forloop.counter0|divisibleby:5 %}w-12 h-12 rounded-full border border-tertiary/30 flex items-center justify-center text-tertiary hover:bg-tertiary hover:text-tertiary-container transition-all duration-300{% else %}w-full py-3 rounded-full border border-tertiary/30 text-tertiary hover:bg-tertiary hover:text-tertiary-container transition-all duration-300 font-label-caps text-label-caps uppercase tracking-widest flex items-center justify-center gap-2{% endif %}">
+                        {% if forloop.counter0|divisibleby:5 %}
+                        <span class="material-symbols-outlined">add</span>
+                        {% else %}
+                        <span>Reserve</span><span class="material-symbols-outlined text-[16px]">add</span>
+                        {% endif %}
+                    </a>
+                    {% if forloop.counter0|divisibleby:5 %}
+                    <span class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-widest opacity-0 group-hover:opacity-100 transition-opacity">Reserve Table</span>
+                    {% endif %}
+                </div>
+            </div>
+        </article>
+        {% endfor %}
+    </div>
+</div>
+</main>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    function filterMenu(category) {
+        const buttons = document.querySelectorAll('.overflow-x-auto button');
+        const items = document.querySelectorAll('.menu-item');
+        
+        buttons.forEach(btn => {
+            if(btn.innerText === category) {
+                btn.className = "px-8 py-3 rounded-full font-label-caps text-label-caps tracking-widest whitespace-nowrap transition-all duration-300 bg-tertiary text-tertiary-container shadow-[0_0_20px_rgba(212,163,115,0.15)]";
+            } else {
+                btn.className = "px-8 py-3 rounded-full font-label-caps text-label-caps tracking-widest whitespace-nowrap transition-all duration-300 glass-panel text-on-surface hover:text-tertiary glow-hover";
+            }
+        });
+
+        items.forEach((item, index) => {
+            item.style.animation = 'none';
+            item.offsetHeight; 
+            
+            if (category === 'All' || item.dataset.category === category) {
+                item.style.display = '';
+                item.style.animation = `fadeScaleIn 0.5s cubic-bezier(0.16, 1, 0.3, 1) ${index * 0.1}s forwards`;
+            } else {
+                item.style.display = 'none';
+            }
+        });
+    }
+</script>
+{% endblock %}

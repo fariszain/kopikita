@@ -1,0 +1,198 @@
+{% load static %}
+<!DOCTYPE html>
+<html class="dark" lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>KopiKita - Secure Login</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com" rel="preconnect"/>
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+    <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;700&family=Playfair+Display:wght@500;600&display=swap" rel="stylesheet"/>
+    <!-- Material Symbols -->
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <!-- Tailwind Theme Config -->
+    <script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                "on-surface": "#ece0db",
+                "outline-variant": "#4d4541",
+                "outline": "#998f89",
+                "secondary": "#cac7af",
+                "secondary-fixed": "#e7e3ca",
+                "on-primary-fixed": "#201b18",
+                "surface-container-high": "#2f2925",
+                "on-secondary-fixed-variant": "#494835",
+                "on-secondary": "#323120",
+                "on-secondary-fixed": "#1d1c0d",
+                "on-tertiary-fixed-variant": "#623f18",
+                "on-tertiary": "#482904",
+                "tertiary-fixed-dim": "#f0bd8b",
+                "on-background": "#ece0db",
+                "secondary-container": "#494835",
+                "on-primary-container": "#7f7773",
+                "surface-container-highest": "#3a3330",
+                "surface-bright": "#3e3834",
+                "primary-fixed-dim": "#cfc4c0",
+                "surface-container-low": "#201a17",
+                "on-tertiary-fixed": "#2c1600",
+                "primary-fixed": "#ebe0db",
+                "surface-tint": "#cfc4c0",
+                "inverse-on-surface": "#352f2c",
+                "background": "#17120f",
+                "surface-dim": "#17120f",
+                "on-error": "#690005",
+                "tertiary-container": "#120600",
+                "secondary-fixed-dim": "#cac7af",
+                "error-container": "#93000a",
+                "surface": "#17120f",
+                "on-secondary-container": "#b9b69e",
+                "surface-variant": "#3a3330",
+                "surface-container-lowest": "#120d0a",
+                "on-primary": "#352f2c",
+                "primary": "#cfc4c0",
+                "on-tertiary-container": "#9b7045",
+                "surface-container": "#241e1b",
+                "on-surface-variant": "#d0c4be",
+                "error": "#ffb4ab",
+                "tertiary-fixed": "#ffdcbd",
+                "tertiary": "#f0bd8b",
+                "on-primary-fixed-variant": "#4c4542",
+                "inverse-surface": "#ece0db",
+                "primary-container": "#0c0806",
+                "inverse-primary": "#645d59",
+                "on-error-container": "#ffdad6"
+            },
+            "fontFamily": {
+                "headline-md": ["Playfair Display"],
+                "headline-lg": ["Playfair Display"],
+                "display-lg-mobile": ["Playfair Display"],
+                "body-lg": ["Hanken Grotesk"],
+                "body-md": ["Hanken Grotesk"],
+                "display-lg": ["Playfair Display"],
+                "label-caps": ["Hanken Grotesk"]
+            }
+          }
+        }
+      }
+    </script>
+    <style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+        }
+        @keyframes float-orb {
+            0% { transform: translate(0, 0) scale(1); opacity: 0.15; }
+            33% { transform: translate(30px, -50px) scale(1.1); opacity: 0.25; }
+            66% { transform: translate(-20px, 20px) scale(0.9); opacity: 0.15; }
+            100% { transform: translate(0, 0) scale(1); opacity: 0.15; }
+        }
+        .animate-float-orb {
+            animation: float-orb 15s ease-in-out infinite;
+        }
+        .noise-overlay::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.03'/%3E%3C/svg%3E");
+            pointer-events: none;
+            z-index: 50;
+            mix-blend-mode: overlay;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-surface font-body-md antialiased min-h-screen flex overflow-hidden noise-overlay">
+    
+    <!-- Flash Messages (Errors) -->
+    {% if messages %}
+    <div style="position: fixed; top: 20px; left: 50%; transform: translateX(-50%); z-index: 9999;">
+        {% for message in messages %}
+        <div class="px-6 py-3 rounded-full bg-error/10 border border-error/20 text-error font-body-md shadow-2xl mb-2 backdrop-blur-md">
+            {{ message }}
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+
+    <!-- LEFT PANEL: Cinematic Photography -->
+    <div class="hidden md:flex md:w-1/2 relative bg-surface-container-lowest overflow-hidden">
+        <div class="absolute inset-0 bg-cover bg-center transition-transform duration-[20s] ease-out hover:scale-105" style="background-image: url('https://images.unsplash.com/photo-1557004396-66e4174d7bf6?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80');">
+        </div>
+        <div class="absolute inset-0 bg-gradient-to-r from-background via-background/80 to-transparent"></div>
+        <div class="absolute inset-0 bg-gradient-to-b from-transparent via-background/20 to-background/90"></div>
+        
+        <div class="absolute top-16 left-16 z-10 flex flex-col items-start gap-4">
+            <div class="w-16 h-16 rounded-full bg-surface-container-lowest/20 backdrop-blur-md p-2 border border-white/5 shadow-2xl flex items-center justify-center text-primary font-bold text-2xl">
+                K
+            </div>
+            <div>
+                <h1 class="font-headline-md text-headline-md text-primary tracking-tight">KopiKita</h1>
+                <p class="font-label-caps text-label-caps text-on-surface-variant mt-2 opacity-70">Artisanal Precision • Admin Portal</p>
+            </div>
+        </div>
+        
+        <div class="absolute bottom-16 left-16 z-10">
+            <div class="backdrop-blur-2xl bg-white/5 border border-white/10 rounded-xl p-6 shadow-2xl max-w-sm">
+                <p class="font-body-md text-body-md text-on-surface-variant italic opacity-80">
+                    "Elevating the provenance of craft, one precisely calibrated extraction at a time."
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- RIGHT PANEL: Secure Login Form -->
+    <div class="w-full md:w-1/2 relative flex flex-col justify-center items-center bg-surface-container-lowest px-6 py-16 lg:p-24 overflow-hidden z-10">
+        
+        <div class="md:hidden absolute top-8 left-8 flex items-center gap-3 z-20">
+            <span class="font-headline-md text-headline-md text-primary tracking-tight text-xl">KopiKita</span>
+        </div>
+        
+        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] h-[400px] bg-tertiary/20 rounded-full blur-[100px] animate-float-orb pointer-events-none z-0"></div>
+        
+        <div class="w-full max-w-md relative z-10 backdrop-blur-2xl bg-surface-container-low/40 border border-white/5 rounded-2xl p-8 lg:p-12 shadow-2xl">
+            <div class="mb-10 text-center">
+                <span class="material-symbols-outlined text-tertiary mb-4 opacity-80 text-4xl" style="font-variation-settings: 'FILL' 0, 'wght' 100;">lock</span>
+                <h2 class="font-headline-lg text-headline-lg text-on-surface mb-2">Welcome Back</h2>
+                <p class="font-body-md text-body-md text-on-surface-variant">Please authenticate to access the dashboard.</p>
+            </div>
+            
+            <form action="{% url 'dashboard_login' %}" class="space-y-6" method="POST">
+                {% csrf_token %}
+                <div class="relative w-full group">
+                    <input autocomplete="username" class="peer w-full bg-surface-container/50 text-on-surface border-b-2 border-outline-variant focus:border-tertiary focus:outline-none focus:bg-surface-container-high px-4 pt-6 pb-2 font-body-md text-body-md transition-all duration-500 placeholder-transparent rounded-t-lg" id="username" name="username" placeholder="Username" required="" type="text"/>
+                    <label class="absolute left-4 top-4 text-on-surface-variant font-body-md text-body-md transition-all duration-300 peer-placeholder-shown:top-4 peer-placeholder-shown:text-body-md peer-placeholder-shown:text-on-surface-variant peer-focus:top-1 peer-focus:text-xs peer-focus:text-tertiary peer-focus:font-label-caps pointer-events-none" for="username">
+                        Admin Username
+                    </label>
+                    <div class="absolute bottom-0 left-0 h-0.5 bg-tertiary w-0 group-focus-within:w-full transition-all duration-500 shadow-[0_0_10px_rgba(212,163,115,0.5)]"></div>
+                </div>
+                
+                <div class="relative w-full group">
+                    <input autocomplete="current-password" class="peer w-full bg-surface-container/50 text-on-surface border-b-2 border-outline-variant focus:border-tertiary focus:outline-none focus:bg-surface-container-high px-4 pt-6 pb-2 font-body-md text-body-md transition-all duration-500 placeholder-transparent rounded-t-lg" id="password" name="password" placeholder="Password" required="" type="password"/>
+                    <label class="absolute left-4 top-4 text-on-surface-variant font-body-md text-body-md transition-all duration-300 peer-placeholder-shown:top-4 peer-placeholder-shown:text-body-md peer-placeholder-shown:text-on-surface-variant peer-focus:top-1 peer-focus:text-xs peer-focus:text-tertiary peer-focus:font-label-caps pointer-events-none" for="password">
+                        Passphrase
+                    </label>
+                    <div class="absolute bottom-0 left-0 h-0.5 bg-tertiary w-0 group-focus-within:w-full transition-all duration-500 shadow-[0_0_10px_rgba(212,163,115,0.5)]"></div>
+                </div>
+                
+                <div class="pt-6">
+                    <button class="group relative w-full flex items-center justify-center gap-3 py-4 bg-secondary text-primary-container font-label-caps text-label-caps rounded-lg overflow-hidden transition-all duration-500 hover:bg-tertiary hover:-translate-y-1 hover:shadow-[0_8px_30px_rgba(212,163,115,0.25)]" type="submit">
+                        <div class="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-out"></div>
+                        <span class="relative z-10">Sign In</span>
+                        <span class="material-symbols-outlined relative z-10 text-sm group-hover:translate-x-2 transition-transform duration-500 ease-out">arrow_right_alt</span>
+                    </button>
+                </div>
+            </form>
+            
+            <div class="mt-8 text-center border-t border-white/5 pt-6">
+                <a href="{% url 'landing' %}" class="font-body-md text-sm text-on-surface-variant hover:text-tertiary transition-colors">
+                    &larr; Back to Public Site
+                </a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
